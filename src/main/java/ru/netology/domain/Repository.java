@@ -59,6 +59,10 @@ public class Repository {
         }
     }
 
+    void removeAll (){
+        issues.clear();
+    }
+
     Issue findById(int issueId) {
         for (Issue issue : issues) {
             if (issue.getId() == issueId) {
@@ -157,7 +161,5 @@ public class Repository {
                 return issue1.getUpdateDate().compareTo(issue2.getUpdateDate());
             }
         }
-
-
     }
 }

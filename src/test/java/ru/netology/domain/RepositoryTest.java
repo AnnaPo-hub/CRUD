@@ -31,6 +31,7 @@ class CRUDRepositoryTest {
 
         @Test
         void add() {
+            repo.removeAll();
             repo.add(testIssue);
             List<Issue> actual = repo.getAll();
             List<Issue> expected = new ArrayList<>();
@@ -46,13 +47,13 @@ class CRUDRepositoryTest {
         @Test
         void shouldOpen() {
             repo.open(1);
-            assertTrue(testIssue.getStatus() == Status.OPEN);
+            assertSame(testIssue.getStatus(), Status.OPEN);
         }
 
         @Test
         void shouldDeleteById() {
             repo.deleteById(1);
-            assertEquals(null, repo.findById(1));
+            assertNull(repo.findById(1));
         }
     }
 
@@ -114,7 +115,7 @@ class CRUDRepositoryTest {
             Issue prevIssue = null;
             for (Issue issue : actual) {
                 if (prevIssue != null) {
-                    assertTrue(!prevIssue.getUpdateDate().before(issue.getUpdateDate()));
+                    assertFalse(prevIssue.getUpdateDate().before(issue.getUpdateDate()));
                 }
                 prevIssue = issue;
             }
@@ -127,7 +128,7 @@ class CRUDRepositoryTest {
             Issue prevIssue = null;
             for (Issue issue : actual) {
                 if (prevIssue != null) {
-                    assertTrue(!prevIssue.getUpdateDate().after(issue.getUpdateDate()));
+                    assertFalse(prevIssue.getUpdateDate().after(issue.getUpdateDate()));
                 }
                 prevIssue = issue;
             }
