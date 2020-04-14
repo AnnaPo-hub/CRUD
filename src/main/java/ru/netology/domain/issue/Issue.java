@@ -108,6 +108,12 @@ public class Issue {
     public String toString() {
         return "Issue{" +
                 "id=" + id +
+                ", name='" + name + '\'' +
+                ", author=" + author +
+                ", label=" + label +
+                ", status=" + status +
+                ", tagsSet=" + tagsSet +
+                ", assigneesSet=" + assigneesSet +
                 '}';
     }
 }

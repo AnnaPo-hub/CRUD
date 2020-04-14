@@ -19,7 +19,12 @@ public class Manager {
     }
 
 
-    public List<Issue> showOpen() { //    отображение списка открытых Issue
+    public void add (Issue issue){
+        issues.add(issue);
+    }
+
+
+    public List<Issue> showOpen() {
         List<Issue> temp = new ArrayList<>();
         for (Issue issue : issues.getAll()) {
             if (issue.getStatus().equals(Status.OPEN)) {
@@ -30,7 +35,7 @@ public class Manager {
         return temp;
     }
 
-    public List<Issue> showClosed() {  //  отображение списка закрытых Issue
+    public List<Issue> showClosed() {
         List<Issue> temp = new ArrayList<>();
         for (Issue issue : issues.getAll()) {
             if (issue.getStatus().equals(CLOSED)) {
@@ -41,9 +46,7 @@ public class Manager {
         return temp;
     }
 
-    protected List<Issue> findMatch(Predicate<Issue> predicate) { //  `  фильтрация по имени автора c  предикатом,
-        // можно тоже самое запустить с помощью лямбда выражения для фильтрации по лэйблу
-        // (кто создал)
+    protected List<Issue> findMatch(Predicate<Issue> predicate) {
         List<Issue> temp = new ArrayList<>();
         for (Issue issue : issues.getAll()) {
             if (predicate.test(issue)) {
@@ -51,6 +54,16 @@ public class Manager {
             }
         }
         return temp;
+    }
+
+   protected List<Issue> findByAssignee (Assignee assignee){
+        List <Issue> temp =  new ArrayList<>();
+        for (Issue issue : issues.getAll()) {
+           if( issue.getAssigneesSet().contains(assignee)){
+               temp.add(issue);
+           }
+        }
+       return temp;
     }
 
     public Set<Assignee> showListOfAssignees(int issueId) {
@@ -100,5 +113,15 @@ public class Manager {
     public List<Issue> sortFromLeastUpdated() {
         List<Issue> issues = this.issues.sortFromLeastRecentlyUpdated();
         return issues;
+    }
+
+
+    Issue findById(int issueId) {
+        for (Issue issue : issues.getAll()) {
+            if (issue.getId() == issueId) {
+                return issue;
+            }
+        }
+        return null;
     }
 }

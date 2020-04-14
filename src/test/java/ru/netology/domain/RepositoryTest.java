@@ -16,7 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-class CRUDRepositoryTest {
+class RepositoryTest {
 
     Repository repo = new Repository();
 
@@ -73,15 +73,15 @@ class CRUDRepositoryTest {
 
         @Test
         void shouldSortByLessCommented() {
-                List<Issue> actual = repo.sortByLessCommented();
-                Issue prevIssue = null;
-                for (Issue issue : actual) {
-                    if (prevIssue != null) {
-                        assertTrue(prevIssue.getCommentSet().size() <= issue.getCommentSet().size());
-                    }
-                    prevIssue = issue;
+            List<Issue> actual = repo.sortByLessCommented();
+            Issue prevIssue = null;
+            for (Issue issue : actual) {
+                if (prevIssue != null) {
+                    assertTrue(prevIssue.getCommentSet().size() <= issue.getCommentSet().size());
                 }
+                prevIssue = issue;
             }
+        }
 
 
         @Test
@@ -133,5 +133,5 @@ class CRUDRepositoryTest {
                 prevIssue = issue;
             }
         }
-        }
     }
+}
