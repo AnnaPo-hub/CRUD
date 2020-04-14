@@ -31,12 +31,15 @@ class CRUDRepositoryTest {
 
         @Test
         void add() {
+            repo.removeAll();
             repo.add(testIssue);
             List<Issue> actual = repo.getAll();
             List<Issue> expected = new ArrayList<>();
             expected.add(testIssue);
             assertEquals(expected, actual);
         }
+
+
     }
 
     @Nested

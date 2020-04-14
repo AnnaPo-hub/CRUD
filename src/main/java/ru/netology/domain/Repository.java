@@ -59,6 +59,10 @@ public class Repository {
         }
     }
 
+    void removeAll (){
+        issues.clear();
+    }
+
     Issue findById(int issueId) {
         for (Issue issue : issues) {
             if (issue.getId() == issueId) {
