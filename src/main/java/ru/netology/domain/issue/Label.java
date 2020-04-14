@@ -1,0 +1,5 @@
+package ru.netology.domain.issue;
+
+public enum Label {
+    BUG, DOCUMENTATION, DUPLICATE, ENHANCEMENT, GOOD_FIRST_ISSUE, HELP_WANTED, INVALID, QUESTION, WANTFIX;
+}
