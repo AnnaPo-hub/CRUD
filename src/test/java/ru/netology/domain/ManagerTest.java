@@ -1,18 +1,20 @@
 package ru.netology.domain;
 
 import org.junit.jupiter.api.Test;
-import ru.netology.domain.issue.Issue;
-import ru.netology.domain.issue.Label;
-import ru.netology.domain.issue.Tag;
-import ru.netology.domain.person.Assignee;
-import ru.netology.domain.person.Author;
+import ru.netology.issue.Issue;
+import ru.netology.issue.Label;
+import ru.netology.issue.Tag;
+import ru.netology.person.Assignee;
+import ru.netology.person.Author;
+import ru.netology.manager.Manager;
+import ru.netology.repository.Repository;
 
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static ru.netology.domain.issue.Status.CLOSED;
-import static ru.netology.domain.issue.Status.OPEN;
+import static ru.netology.issue.Status.CLOSED;
+import static ru.netology.issue.Status.OPEN;
 
 class ManagerTest {
     Manager man = new Manager(new Repository());

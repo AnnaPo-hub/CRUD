@@ -1,4 +1,4 @@
-package ru.netology.domain.issue;
+package ru.netology.issue;
 
 public enum Status {
 

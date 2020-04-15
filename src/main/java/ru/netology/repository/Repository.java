@@ -1,13 +1,13 @@
-package ru.netology.domain;
+package ru.netology.repository;
 
-import ru.netology.domain.issue.*;
-import ru.netology.domain.person.Assignee;
-import ru.netology.domain.person.Author;
+import ru.netology.issue.*;
+import ru.netology.person.Assignee;
+import ru.netology.person.Author;
 
 import java.util.*;
 
-import static ru.netology.domain.issue.Label.BUG;
-import static ru.netology.domain.issue.Status.CLOSED;
+import static ru.netology.issue.Label.BUG;
+import static ru.netology.issue.Status.CLOSED;
 
 public class Repository {
 
@@ -20,7 +20,7 @@ public class Repository {
     }
 
 
-    Repository() {
+    public Repository() {
         Set<Comment> commentSet = new HashSet<>();
         commentSet.add(new Comment(3, new Author(4, "Nikolay", "Elagin"), "Я уже уточнял, что за приложение и делал эту задачу", new GregorianCalendar(2020, Calendar.APRIL, 12, 13, 11, 11).getTime()));
         commentSet.add(new Comment(4, new Author(8, "Anna", "Popova"), "Оно снова падает", new GregorianCalendar(2020, Calendar.APRIL, 12, 15, 11, 11).getTime()));
@@ -34,11 +34,11 @@ public class Repository {
         issues.add(new Issue(6, "приложение не запускается", new Author(8, "Anna", "Popova"), BUG, new Assignee(2, "Vladimir", "Poznek"), CLOSED, new GregorianCalendar(2020, Calendar.APRIL, 10, 13, 11, 11).getTime(), commentSet));
     }
 
-    List<Issue> getAll() {
+    public List<Issue> getAll() {
         return issues;
     }
 
-    void add(Issue issue) {
+    public void add(Issue issue) {
         issues.add(issue);
     }
 

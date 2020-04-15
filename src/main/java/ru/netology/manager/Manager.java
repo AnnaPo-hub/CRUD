@@ -1,15 +1,16 @@
-package ru.netology.domain;
+package ru.netology.manager;
 
-import ru.netology.domain.issue.Issue;
-import ru.netology.domain.issue.Status;
-import ru.netology.domain.person.Assignee;
+import ru.netology.repository.Repository;
+import ru.netology.issue.Issue;
+import ru.netology.issue.Status;
+import ru.netology.person.Assignee;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import static ru.netology.domain.issue.Status.CLOSED;
+import static ru.netology.issue.Status.CLOSED;
 
 public class Manager {
     private Repository issues;
@@ -46,7 +47,7 @@ public class Manager {
         return temp;
     }
 
-    protected List<Issue> findMatch(Predicate<Issue> predicate) {
+    public List<Issue> findMatch(Predicate<Issue> predicate) {
         List<Issue> temp = new ArrayList<>();
         for (Issue issue : issues.getAll()) {
             if (predicate.test(issue)) {
@@ -56,7 +57,7 @@ public class Manager {
         return temp;
     }
 
-   protected List<Issue> findByAssignee (Assignee assignee){
+   public List<Issue> findByAssignee(Assignee assignee){
         List <Issue> temp =  new ArrayList<>();
         for (Issue issue : issues.getAll()) {
            if( issue.getAssigneesSet().contains(assignee)){

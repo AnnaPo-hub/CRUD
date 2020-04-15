@@ -1,4 +1,4 @@
-package ru.netology.domain.person;
+package ru.netology.person;
 
 import java.util.Objects;
 

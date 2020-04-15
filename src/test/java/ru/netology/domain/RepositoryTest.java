@@ -2,11 +2,12 @@ package ru.netology.domain;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import ru.netology.domain.issue.Issue;
-import ru.netology.domain.issue.Label;
-import ru.netology.domain.issue.Status;
-import ru.netology.domain.person.Assignee;
-import ru.netology.domain.person.Author;
+import ru.netology.issue.Issue;
+import ru.netology.issue.Label;
+import ru.netology.issue.Status;
+import ru.netology.person.Assignee;
+import ru.netology.person.Author;
+import ru.netology.repository.Repository;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -86,6 +87,7 @@ class RepositoryTest {
 
         @Test
         void shouldSortFromOldest() {
+
             List<Issue> actual = repo.sortFromOldest();
             Issue prevIssue = null;
             for (Issue issue : actual) {

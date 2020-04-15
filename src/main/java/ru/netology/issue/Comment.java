@@ -1,6 +1,6 @@
-package ru.netology.domain.issue;
+package ru.netology.issue;
 
-import ru.netology.domain.person.Author;
+import ru.netology.person.Author;
 
 import java.util.Date;
 

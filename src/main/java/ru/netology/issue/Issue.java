@@ -1,9 +1,9 @@
-package ru.netology.domain.issue;
+package ru.netology.issue;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import ru.netology.domain.person.Assignee;
-import ru.netology.domain.person.Author;
+import ru.netology.person.Assignee;
+import ru.netology.person.Author;
 
 import java.util.Date;
 import java.util.HashSet;
