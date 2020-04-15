@@ -7,14 +7,12 @@ import ru.netology.domain.issue.Tag;
 import ru.netology.domain.person.Assignee;
 import ru.netology.domain.person.Author;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static ru.netology.domain.issue.Status.CLOSED;
+import static ru.netology.domain.issue.Status.OPEN;
 
 class ManagerTest {
     Manager man = new Manager(new Repository());
@@ -53,10 +51,33 @@ class ManagerTest {
 
 
     @Test
-    void addAssignee() {
+    void shouldAddAssignee() {
         man.addAssignee(1, new Assignee(5, "Boris", "Aprelev"));
         Set<Assignee> assignees = man.showListOfAssignees(1);
         assertTrue(assignees.contains(new Assignee(5, "Boris", "Aprelev")));
     }
 
+    @Test
+    void shouldShowOpen() {
+        List<Issue> actual = man.showOpen();
+        List<Issue> expected = new ArrayList<>();
+        for(Issue issue :actual){
+            if(issue.getStatus()==OPEN){
+                expected.add(issue);
+            }
+        }
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    void shouldShowClosed() {
+        List<Issue> actual = man.showClosed();
+        List<Issue> expected = new ArrayList<>();
+        for(Issue issue :actual){
+            if(issue.getStatus()==CLOSED){
+                expected.add(issue);
+            }
+        }
+        assertEquals(expected,actual);
+    }
 }

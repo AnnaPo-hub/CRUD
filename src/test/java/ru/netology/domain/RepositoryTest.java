@@ -30,7 +30,7 @@ class RepositoryTest {
     public class Empty {
 
         @Test
-        void add() {
+        void shouldAdd() {
             repo.removeAll();
             repo.add(testIssue);
             List<Issue> actual = repo.getAll();
