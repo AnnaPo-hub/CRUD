@@ -35,14 +35,14 @@ class IssueRepositoryTest {
             Label.BUG, new Assignee(2, "Vladimir", "Posnek"), Status.CLOSED,
             new GregorianCalendar(2019, Calendar.NOVEMBER, 16, 12, 11, 11).getTime());
 
-//    @Test
-//    void shouldAdd() {
-//        repo.add(testIssue);
-//        Issue byId = repo.findById(7);
-//        List<Issue> expected = new ArrayList<>();
-//        expected.add(testIssue);
-//        assertEquals(expected, actual);
-//    }
+    @Test
+    void shouldAdd() {
+        repo.add(testIssue);
+        Issue actual  = repo.findById(7);
+        List<Issue> expected = new ArrayList<>();
+        expected.add(testIssue);
+        assertEquals(testIssue, actual);
+    }
 
     @Test
     void shouldOpen() {
