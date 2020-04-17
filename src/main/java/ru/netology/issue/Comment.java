@@ -1,28 +1,17 @@
 package ru.netology.issue;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import ru.netology.person.Author;
 
 import java.util.Date;
 
+@AllArgsConstructor
+@Data
 public class Comment {
-    int id;
-    Author author;
-    String content;
-    Date commentDate = new Date();
+    private int id;
+    private Author author;
+    private String content;
+    private Date commentDate = new Date();
 
-    public Comment(int id, Author author, String content, Date commentDate) {
-        this.id = id;
-        this.author = author;
-        this.content = content;
-        this.commentDate = commentDate;
-
-    }
-
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "author=" + author +
-                ", content='" + content + '\'' +
-                '}';
-    }
 }

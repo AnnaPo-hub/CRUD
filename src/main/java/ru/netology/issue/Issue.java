@@ -12,30 +12,31 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 public class Issue {
-    int id;
-    String name;
-    Author author;
-    Label label;
-    Status status;
-    Set<Tag> tagsSet;
-    Set<Assignee> assigneesSet;
-    Date createDate = new Date();
-    Date updateDate = new Date();
-    Set<Comment> commentSet = new HashSet<>();
-    Date commentDate = new Date();
+    private int id;
+    private String name;
+    private Author author;
+    private Label label;
+    private Status status;
+    private Set<Tag> tagsSet;
+    private Set<Assignee> assigneesSet;
+    private Date createDate;
+    private Date updateDate;
+    private Set<Comment> commentSet = new HashSet<>();
+    private Date commentDate;
 
 
-    public Issue(int id, String name, Author author, Label label, Assignee assignee, Tag tag, Status status, Date createDate) {
+    public Issue(int id, String name, Author author, Label label, Assignee assignee, Tag tag, Status status, Date createDate, Date updateDate) {
         this.id = id;
         this.name = name;
         this.author = author;
         this.label = label;
-        this.assigneesSet = new HashSet<Assignee>();
+        this.assigneesSet = new HashSet<>();
         this.assigneesSet.add(assignee);
         this.tagsSet = new HashSet<Tag>();
         this.tagsSet.add(tag);
         this.status = status;
         this.createDate = createDate;
+        this.updateDate = updateDate;
     }
 
     public Issue(int id, String name, Author author, Label label, Assignee assignee, Status status, Date createDate) {
@@ -49,6 +50,8 @@ public class Issue {
         this.status = status;
         this.createDate = createDate;
     }
+
+
 
     public Issue(int id, String name, Author author, Label label, Assignee assignee, Status status, Date createDate, Comment comment) { //один коммент
         this.id = id;
@@ -76,44 +79,9 @@ public class Issue {
         this.commentSet = commentsSet;
     }
 
-
-
-    public boolean addAssignee(Assignee assignee) {
-        if (assignee != null) {
-            if (assigneesSet == null) {
-                assigneesSet = new HashSet<>();
-            }
-            return assigneesSet.add(assignee);
-        }
-        return false;
-    }
-
-    public boolean addComment(Comment comment) {
-        if (comment != null) {
-            if (commentSet == null) {
-                commentSet = new HashSet<>();
-            }
-            return commentSet.add(comment);
-        }
-        return false;
-    }
-
-
     public void setStatus(Status status) {
         this.status = status;
         updateDate = new Date();
     }
-
-    @Override
-    public String toString() {
-        return "Issue{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", author=" + author +
-                ", label=" + label +
-                ", status=" + status +
-                ", tagsSet=" + tagsSet +
-                ", assigneesSet=" + assigneesSet +
-                '}';
-    }
 }
+
