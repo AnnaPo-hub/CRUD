@@ -58,7 +58,6 @@ class IssueManagerTest {
     @Test
     void shouldFilterByAssignee() {
         List<Issue> actual = issueManager.filterByAssignee(new Assignee(4, "Nilolay", "Elagin"));
-        System.out.println(actual);
         List<Issue> expected = new ArrayList<>();
         expected.add(new Issue(2, "подсказка в д/з не помогает", new Author(3, "Vasiliy", "Vodovozov"), BUG, new Assignee(4, "Nilolay", "Elagin"), new Tag(3, "invitroprogect"), Status.OPEN, new GregorianCalendar(2019, Calendar.NOVEMBER, 17, 12, 11, 11).getTime(), new GregorianCalendar(2019, Calendar.NOVEMBER, 18, 12, 11, 11).getTime()));
         assertEquals(expected, actual);
@@ -67,7 +66,6 @@ class IssueManagerTest {
     @Test
     void shouldShowOpen() {
         List<Issue> actual = issueManager.showOpen();
-        System.out.println(actual);
         List<Issue> expected = new ArrayList<>();
         for (Issue issue : actual) {
             if (issue.getStatus() == OPEN) {
@@ -151,7 +149,6 @@ class IssueManagerTest {
             prevIssue = issue;
         }
     }
-
 
     @Test
     void shouldSortFromLeastRecentlyUpdated() {

@@ -108,7 +108,6 @@ public class IssueManager {
     }
 
     public List<Issue> sortFromOldest() {
-
         DateComparator comparator = new DateComparator(false);
         List<Issue> issuesAll = issues.getAll();
         issuesAll.sort(comparator);

@@ -30,7 +30,6 @@ class IssueRepositoryTest {
 
    IssueRepository repo = new IssueRepository(repoList);
 
-
     Issue testIssue = new Issue(7, "ничего не работает", new Author(1, "Irina", "Alexandrova"),
             Label.BUG, new Assignee(2, "Vladimir", "Posnek"), Status.CLOSED,
             new GregorianCalendar(2019, Calendar.NOVEMBER, 16, 12, 11, 11).getTime());
