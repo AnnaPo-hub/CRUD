@@ -2,6 +2,7 @@ package ru.netology.repository;
 
 import ru.netology.issue.Issue;
 import ru.netology.issue.Status;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class Repository {
             }
         }
     }
+
     public void close(int issueId) {
         for (Issue issue : issues) {
             if (issue.getId() == issueId) {
