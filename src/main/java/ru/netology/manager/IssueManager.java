@@ -5,10 +5,10 @@ import ru.netology.issue.Issue;
 import ru.netology.issue.Label;
 import ru.netology.issue.Status;
 import ru.netology.person.Assignee;
-import ru.netology.repository.CommentsQuantComparator;
-import ru.netology.repository.DateComparator;
-import ru.netology.repository.IssueRepository;
-import ru.netology.repository.UpdateComparator;
+import ru.netology.comparator.CommentsQuantComparator;
+import ru.netology.comparator.DateComparator;
+import ru.netology.repository.Repository;
+import ru.netology.comparator.UpdateComparator;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,9 +19,9 @@ import java.util.function.Predicate;
 import static ru.netology.issue.Status.CLOSED;
 
 public class IssueManager {
-    private IssueRepository issues;
+    private Repository issues;
 
-    public IssueManager(IssueRepository issues) {
+    public IssueManager(Repository issues) {
         this.issues = issues;
     }
 
@@ -135,7 +135,7 @@ public class IssueManager {
         return issuesAll;
     }
 
-    Issue findById(int issueId) {
+   public Issue findById(int issueId) {
         for (Issue issue : issues.getAll()) {
             if (issue.getId() == issueId) {
                 return issue;

@@ -69,9 +69,9 @@ public class Issue {
         this.name = name;
         this.author = author;
         this.label = label;
-        this.assigneesSet = new HashSet<Assignee>();
+        this.assigneesSet = new HashSet<>();
         this.assigneesSet.add(assignee);
-        this.tagsSet = new HashSet<Tag>();
+        this.tagsSet = new HashSet<>();
         this.status = status;
         this.createDate = createDate;
         this.commentSet.add(comment);
@@ -83,9 +83,9 @@ public class Issue {
         this.name = name;
         this.author = author;
         this.label = label;
-        this.assigneesSet = new HashSet<Assignee>();
+        this.assigneesSet = new HashSet<>();
         this.assigneesSet.add(assignee);
-        this.tagsSet = new HashSet<Tag>();
+        this.tagsSet = new HashSet<>();
         this.status = status;
         this.createDate = createDate;
         this.commentSet = commentsSet;

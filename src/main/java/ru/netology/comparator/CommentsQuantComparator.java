@@ -1,4 +1,4 @@
-package ru.netology.repository;
+package ru.netology.comparator;
 
 import ru.netology.issue.Issue;
 
