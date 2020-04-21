@@ -17,8 +17,8 @@ public class Issue {
     private Author author;
     private Label label;
     private Status status;
-    private Set<Tag> tagsSet;
-    private Set<Assignee> assigneesSet;
+    private Set<Tag> tagsSet = new HashSet<>();
+    private Set<Assignee> assigneesSet = new HashSet<>();
     private Date createDate;
     private Date updateDate;
     private Set<Comment> commentSet = new HashSet<>();
@@ -29,9 +29,7 @@ public class Issue {
         this.name = name;
         this.author = author;
         this.label = label;
-        this.assigneesSet = new HashSet<>();
         this.assigneesSet.add(assignee);
-        this.tagsSet = new HashSet<Tag>();
         this.tagsSet.add(tag);
         this.status = status;
         this.createDate = createDate;
@@ -43,9 +41,7 @@ public class Issue {
         this.name = name;
         this.author = author;
         this.label = label;
-        this.assigneesSet = new HashSet<Assignee>();
         this.assigneesSet.add(assignee);
-        this.tagsSet = new HashSet<Tag>();
         this.status = status;
         this.createDate = createDate;
         this.updateDate = updateDate;
@@ -56,9 +52,7 @@ public class Issue {
         this.name = name;
         this.author = author;
         this.label = label;
-        this.assigneesSet = new HashSet<Assignee>();
         this.assigneesSet.add(assignee);
-        this.tagsSet = new HashSet<Tag>();
         this.status = status;
         this.createDate = createDate;
         this.commentSet.add(comment);
@@ -69,9 +63,7 @@ public class Issue {
         this.name = name;
         this.author = author;
         this.label = label;
-        this.assigneesSet = new HashSet<>();
         this.assigneesSet.add(assignee);
-        this.tagsSet = new HashSet<>();
         this.status = status;
         this.createDate = createDate;
         this.commentSet.add(comment);
@@ -83,9 +75,7 @@ public class Issue {
         this.name = name;
         this.author = author;
         this.label = label;
-        this.assigneesSet = new HashSet<>();
         this.assigneesSet.add(assignee);
-        this.tagsSet = new HashSet<>();
         this.status = status;
         this.createDate = createDate;
         this.commentSet = commentsSet;
@@ -96,9 +86,7 @@ public class Issue {
         this.name = name;
         this.author = author;
         this.label = label;
-        this.assigneesSet = new HashSet<Assignee>();
         this.assigneesSet.add(assignee);
-        this.tagsSet = new HashSet<Tag>();
         this.status = status;
         this.createDate = createDate;
         this.commentSet = commentsSet;
@@ -110,9 +98,7 @@ public class Issue {
         this.name = name;
         this.author = author;
         this.label = label;
-        this.assigneesSet = new HashSet<>();
         this.assigneesSet.add(assignee);
-        this.tagsSet = new HashSet<Tag>();
         this.status = status;
         this.createDate = createDate;
     }

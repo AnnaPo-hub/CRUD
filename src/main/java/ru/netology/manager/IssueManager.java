@@ -83,6 +83,7 @@ public class IssueManager {
         }
         return temp;
     }
+
     public List<Issue> filterByLabel(Label label) {
         List<Issue> temp = new ArrayList<>();
         for (Issue issue : issues.getAll()) {

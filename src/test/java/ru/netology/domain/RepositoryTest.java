@@ -28,7 +28,7 @@ class RepositoryTest {
     private Comment comment2 = new Comment(4, new Author(8, "Anna", "Popova"), "Оно снова падает", new GregorianCalendar(2020, Calendar.APRIL, 12, 15, 11, 11).getTime());
     private Comment comment3 = new Comment(4, new Author(4, "Nikolay", "Elagin"), "разбираемся", new GregorianCalendar(2020, Calendar.APRIL, 12, 15, 15, 16).getTime());
 
-    Repository repo = new Repository();
+    private Repository repo = new Repository();
     private IssueManager issueManager = new IssueManager(repo);
 
     @BeforeEach
@@ -45,17 +45,14 @@ class RepositoryTest {
         issueManager.addComment(6, comment3);
     }
 
-    Issue testIssue = new Issue(7, "ничего не работает", new Author(1, "Irina", "Alexandrova"),
+    private Issue testIssue = new Issue(7, "ничего не работает", new Author(1, "Irina", "Alexandrova"),
             Label.BUG, new Assignee(2, "Vladimir", "Posnek"), Status.CLOSED,
             new GregorianCalendar(2019, Calendar.NOVEMBER, 16, 12, 11, 11).getTime());
 
     @Test
     void shouldAdd() {
         repo.add(testIssue);
-        Issue actual = repo.findById(7);
-        List<Issue> expected = new ArrayList<>();
-        expected.add(testIssue);
-        assertEquals(testIssue, actual);
+        assertEquals(testIssue, repo.findById(7));
     }
 
     @Test

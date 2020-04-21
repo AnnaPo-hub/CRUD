@@ -12,6 +12,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.netology.issue.Label.BUG;
+import static ru.netology.issue.Label.DOCUMENTATION;
 import static ru.netology.issue.Status.CLOSED;
 import static ru.netology.issue.Status.OPEN;
 
@@ -55,17 +56,18 @@ class IssueManagerTest {
     @Test
     void shouldFilterByLabel() {
         issueManager.add(new Issue(8, "test", new Author(10, "Igor", "Popov"), Label.DOCUMENTATION, new Assignee(5, "Boris", "Aprelev"), new Tag(1, "test"), CLOSED, new GregorianCalendar(2020, Calendar.APRIL, 12, 15, 11, 11).getTime(), new GregorianCalendar(2020, Calendar.APRIL, 13, 15, 11, 11).getTime()));
-        List<Issue> actual = issueManager.findMatch(issue -> issue.getLabel().equals(Label.DOCUMENTATION));
+        List<Issue> actual = issueManager.filterByLabel(DOCUMENTATION);
         int expectedIssueId = 8;
         int actualIssueId = actual.get(0).getId();
         assertEquals(expectedIssueId, actualIssueId);
     }
 
+
     @Test
     void shouldFilterByAssignee() {
         List<Issue> actual = issueManager.filterByAssignee(new Assignee(4, "Nilolay", "Elagin"));
         List<Issue> expected = new ArrayList<>();
-        expected.add(new Issue(2, "подсказка в д/з не помогает", new Author(3, "Vasiliy", "Vodovozov"), BUG, new Assignee(4, "Nilolay", "Elagin"), new Tag(3, "invitroprogect"), Status.OPEN, new GregorianCalendar(2019, Calendar.NOVEMBER, 17, 12, 11, 11).getTime(), new GregorianCalendar(2019, Calendar.NOVEMBER, 18, 12, 11, 11).getTime()));
+        expected.add(issue2);
         assertEquals(expected, actual);
     }
 
@@ -73,9 +75,9 @@ class IssueManagerTest {
     void shouldShowOpen() {
         List<Issue> actual = issueManager.showOpen();
         List<Issue> expected = new ArrayList<>();
-        expected.add(new Issue(1, "ничего не работает", new Author(1, "Irina", "Alexandrova"), BUG, new Assignee(2, "Vladimir", "Posnek"), new Tag(2, "invitroproject"), OPEN, new GregorianCalendar(2019, Calendar.NOVEMBER, 16, 12, 11, 11).getTime(), new GregorianCalendar(2019, Calendar.DECEMBER, 16, 12, 11, 11).getTime()));
-        expected.add(new Issue(2, "подсказка в д/з не помогает", new Author(3, "Vasiliy", "Vodovozov"), BUG, new Assignee(4, "Nilolay", "Elagin"), new Tag(3, "invitroprogect"), OPEN, new GregorianCalendar(2019, Calendar.NOVEMBER, 17, 12, 11, 11).getTime(), new GregorianCalendar(2019, Calendar.NOVEMBER, 18, 12, 11, 11).getTime()));
-        expected.add(new Issue(5, "Кнопка добавить товар должна быть больше", new Author(5, "Anyz", "Mavel"), Label.WANTFIX, new Assignee(1, "Irina", "Alexandrova"), Status.OPEN, new GregorianCalendar(2020, Calendar.APRIL, 8, 12, 11, 11).getTime(), new Comment(1, new Author(1, "Irina", "Alexandrova"), "уточните какого размера должна быть кнопка", new GregorianCalendar(2020, Calendar.MAY, 8, 13, 15, 17).getTime()), new GregorianCalendar(2020, Calendar.MAY, 8, 13, 15, 17).getTime()));
+        expected.add(issue1);
+        expected.add(issue2);
+        expected.add(issue5);
         assertEquals(expected, actual);
     }
 
@@ -83,13 +85,9 @@ class IssueManagerTest {
     void shouldShowClosed() {
         List<Issue> actual = issueManager.showClosed();
         List<Issue> expected = new ArrayList<>();
-        expected.add(new Issue(3, "я могу предложить больше методов для д/з", new Author(5, "Boris", "Aprelev"), Label.ENHANCEMENT, new Assignee(6, "Dmitriy", "Girs"), CLOSED, new GregorianCalendar(2019, Calendar.DECEMBER, 16, 13, 12, 14).getTime(), new GregorianCalendar(2019, Calendar.DECEMBER, 16, 13, 12, 14).getTime()));
-        expected.add(new Issue(4, "Файл с домашним заданием не загружается", new Author(7, "Savva", "Derunov"), BUG, new Assignee(5, "Boris", "Aprelev"), CLOSED, new GregorianCalendar(2020, Calendar.MARCH, 24, 12, 11, 11).getTime(), new GregorianCalendar(2020, Calendar.MARCH, 24, 2, 11, 11).getTime()));
-        HashSet<Comment> commentsSet = new HashSet<>();
-        commentsSet.add(comment1);
-        commentsSet.add(comment2);
-        commentsSet.add(comment3);
-        expected.add(new Issue(6, "приложение не запускается", new Author(8, "Anna", "Popova"), BUG, new Assignee(2, "Vladimir", "Poznek"), CLOSED, new GregorianCalendar(2020, Calendar.APRIL, 10, 13, 11, 11).getTime(), commentsSet, new GregorianCalendar(2020, Calendar.APRIL, 10, 17, 11, 11).getTime()));
+        expected.add(issue3);
+        expected.add(issue4);
+        expected.add(issue6);
         assertEquals(expected, actual);
     }
 
@@ -97,16 +95,12 @@ class IssueManagerTest {
     void shouldSortByMostCommented() {
         List<Issue> actual = issueManager.sortByMostCommented();
         List<Issue> expected = new ArrayList<>();
-        HashSet<Comment> commentsSet = new HashSet<>();
-        commentsSet.add(comment1);
-        commentsSet.add(comment2);
-        commentsSet.add(comment3);
-        expected.add(new Issue(6, "приложение не запускается", new Author(8, "Anna", "Popova"), BUG, new Assignee(2, "Vladimir", "Poznek"), CLOSED, new GregorianCalendar(2020, Calendar.APRIL, 10, 13, 11, 11).getTime(), commentsSet, new GregorianCalendar(2020, Calendar.APRIL, 10, 17, 11, 11).getTime()));
-        expected.add(new Issue(5, "Кнопка добавить товар должна быть больше", new Author(5, "Anyz", "Mavel"), Label.WANTFIX, new Assignee(1, "Irina", "Alexandrova"), Status.OPEN, new GregorianCalendar(2020, Calendar.APRIL, 8, 12, 11, 11).getTime(), new Comment(1, new Author(1, "Irina", "Alexandrova"), "уточните какого размера должна быть кнопка", new GregorianCalendar(2020, Calendar.MAY, 8, 13, 15, 17).getTime()), new GregorianCalendar(2020, Calendar.MAY, 8, 13, 15, 17).getTime()));
-        expected.add(new Issue(1, "ничего не работает", new Author(1, "Irina", "Alexandrova"), BUG, new Assignee(2, "Vladimir", "Posnek"), new Tag(2, "invitroproject"), OPEN, new GregorianCalendar(2019, Calendar.NOVEMBER, 16, 12, 11, 11).getTime(), new GregorianCalendar(2019, Calendar.DECEMBER, 16, 12, 11, 11).getTime()));
-        expected.add(new Issue(2, "подсказка в д/з не помогает", new Author(3, "Vasiliy", "Vodovozov"), BUG, new Assignee(4, "Nilolay", "Elagin"), new Tag(3, "invitroprogect"), OPEN, new GregorianCalendar(2019, Calendar.NOVEMBER, 17, 12, 11, 11).getTime(), new GregorianCalendar(2019, Calendar.NOVEMBER, 18, 12, 11, 11).getTime()));
-        expected.add(new Issue(3, "я могу предложить больше методов для д/з", new Author(5, "Boris", "Aprelev"), Label.ENHANCEMENT, new Assignee(6, "Dmitriy", "Girs"), CLOSED, new GregorianCalendar(2019, Calendar.DECEMBER, 16, 13, 12, 14).getTime(), new GregorianCalendar(2019, Calendar.DECEMBER, 16, 13, 12, 14).getTime()));
-        expected.add(new Issue(4, "Файл с домашним заданием не загружается", new Author(7, "Savva", "Derunov"), BUG, new Assignee(5, "Boris", "Aprelev"), CLOSED, new GregorianCalendar(2020, Calendar.MARCH, 24, 12, 11, 11).getTime(), new GregorianCalendar(2020, Calendar.MARCH, 24, 2, 11, 11).getTime()));
+        expected.add(issue6);
+        expected.add(issue5);
+        expected.add(issue1);
+        expected.add(issue2);
+        expected.add(issue3);
+        expected.add(issue4);
         assertEquals(expected, actual);
     }
 
@@ -115,16 +109,12 @@ class IssueManagerTest {
     void shouldSortByLessCommented() {
         List<Issue> actual = issueManager.sortByLessCommented();
         List<Issue> expected = new ArrayList<>();
-        expected.add(new Issue(1, "ничего не работает", new Author(1, "Irina", "Alexandrova"), BUG, new Assignee(2, "Vladimir", "Posnek"), new Tag(2, "invitroproject"), OPEN, new GregorianCalendar(2019, Calendar.NOVEMBER, 16, 12, 11, 11).getTime(), new GregorianCalendar(2019, Calendar.DECEMBER, 16, 12, 11, 11).getTime()));
-        expected.add(new Issue(2, "подсказка в д/з не помогает", new Author(3, "Vasiliy", "Vodovozov"), BUG, new Assignee(4, "Nilolay", "Elagin"), new Tag(3, "invitroprogect"), Status.OPEN, new GregorianCalendar(2019, Calendar.NOVEMBER, 17, 12, 11, 11).getTime(), new GregorianCalendar(2019, Calendar.NOVEMBER, 18, 12, 11, 11).getTime()));
-        expected.add(new Issue(3, "я могу предложить больше методов для д/з", new Author(5, "Boris", "Aprelev"), Label.ENHANCEMENT, new Assignee(6, "Dmitriy", "Girs"), CLOSED, new GregorianCalendar(2019, Calendar.DECEMBER, 16, 13, 12, 14).getTime(), new GregorianCalendar(2019, Calendar.DECEMBER, 16, 13, 12, 14).getTime()));
-        expected.add(new Issue(4, "Файл с домашним заданием не загружается", new Author(7, "Savva", "Derunov"), BUG, new Assignee(5, "Boris", "Aprelev"), CLOSED, new GregorianCalendar(2020, Calendar.MARCH, 24, 12, 11, 11).getTime(), new GregorianCalendar(2020, Calendar.MARCH, 24, 2, 11, 11).getTime()));
-        expected.add(new Issue(5, "Кнопка добавить товар должна быть больше", new Author(5, "Anyz", "Mavel"), Label.WANTFIX, new Assignee(1, "Irina", "Alexandrova"), Status.OPEN, new GregorianCalendar(2020, Calendar.APRIL, 8, 12, 11, 11).getTime(), new Comment(1, new Author(1, "Irina", "Alexandrova"), "уточните какого размера должна быть кнопка", new GregorianCalendar(2020, Calendar.MAY, 8, 13, 15, 17).getTime()), new GregorianCalendar(2020, Calendar.MAY, 8, 13, 15, 17).getTime()));
-        HashSet<Comment> commentsSet = new HashSet<>();
-        commentsSet.add(comment1);
-        commentsSet.add(comment2);
-        commentsSet.add(comment3);
-        expected.add(new Issue(6, "приложение не запускается", new Author(8, "Anna", "Popova"), BUG, new Assignee(2, "Vladimir", "Poznek"), CLOSED, new GregorianCalendar(2020, Calendar.APRIL, 10, 13, 11, 11).getTime(), commentsSet, new GregorianCalendar(2020, Calendar.APRIL, 10, 17, 11, 11).getTime()));
+        expected.add(issue1);
+        expected.add(issue2);
+        expected.add(issue3);
+        expected.add(issue4);
+        expected.add(issue5);
+        expected.add(issue6);
         assertEquals(expected, actual);
     }
 
@@ -132,16 +122,12 @@ class IssueManagerTest {
     void shouldSortFromOldest() {
         List<Issue> actual = issueManager.sortFromOldest();
         List<Issue> expected = new ArrayList<>();
-        expected.add(new Issue(1, "ничего не работает", new Author(1, "Irina", "Alexandrova"), BUG, new Assignee(2, "Vladimir", "Posnek"), new Tag(2, "invitroproject"), OPEN, new GregorianCalendar(2019, Calendar.NOVEMBER, 16, 12, 11, 11).getTime(), new GregorianCalendar(2019, Calendar.DECEMBER, 16, 12, 11, 11).getTime()));
-        expected.add(new Issue(2, "подсказка в д/з не помогает", new Author(3, "Vasiliy", "Vodovozov"), BUG, new Assignee(4, "Nilolay", "Elagin"), new Tag(3, "invitroprogect"), Status.OPEN, new GregorianCalendar(2019, Calendar.NOVEMBER, 17, 12, 11, 11).getTime(), new GregorianCalendar(2019, Calendar.NOVEMBER, 18, 12, 11, 11).getTime()));
-        expected.add(new Issue(3, "я могу предложить больше методов для д/з", new Author(5, "Boris", "Aprelev"), Label.ENHANCEMENT, new Assignee(6, "Dmitriy", "Girs"), CLOSED, new GregorianCalendar(2019, Calendar.DECEMBER, 16, 13, 12, 14).getTime(), new GregorianCalendar(2019, Calendar.DECEMBER, 16, 13, 12, 14).getTime()));
-        expected.add(new Issue(4, "Файл с домашним заданием не загружается", new Author(7, "Savva", "Derunov"), BUG, new Assignee(5, "Boris", "Aprelev"), CLOSED, new GregorianCalendar(2020, Calendar.MARCH, 24, 12, 11, 11).getTime(), new GregorianCalendar(2020, Calendar.MARCH, 24, 2, 11, 11).getTime()));
-        expected.add(new Issue(5, "Кнопка добавить товар должна быть больше", new Author(5, "Anyz", "Mavel"), Label.WANTFIX, new Assignee(1, "Irina", "Alexandrova"), Status.OPEN, new GregorianCalendar(2020, Calendar.APRIL, 8, 12, 11, 11).getTime(), new Comment(1, new Author(1, "Irina", "Alexandrova"), "уточните какого размера должна быть кнопка", new GregorianCalendar(2020, Calendar.MAY, 8, 13, 15, 17).getTime()), new GregorianCalendar(2020, Calendar.MAY, 8, 13, 15, 17).getTime()));
-        HashSet<Comment> commentsSet = new HashSet<>();
-        commentsSet.add(comment1);
-        commentsSet.add(comment2);
-        commentsSet.add(comment3);
-        expected.add(new Issue(6, "приложение не запускается", new Author(8, "Anna", "Popova"), BUG, new Assignee(2, "Vladimir", "Poznek"), CLOSED, new GregorianCalendar(2020, Calendar.APRIL, 10, 13, 11, 11).getTime(), commentsSet, new GregorianCalendar(2020, Calendar.APRIL, 10, 17, 11, 11).getTime()));
+        expected.add(issue1);
+        expected.add(issue2);
+        expected.add(issue3);
+        expected.add(issue4);
+        expected.add(issue5);
+        expected.add(issue6);
         assertEquals(expected, actual);
     }
 
@@ -149,16 +135,12 @@ class IssueManagerTest {
     void shouldSortFromNewest() {
         List<Issue> actual = issueManager.sortFromNewest();
         List<Issue> expected = new ArrayList<>();
-        HashSet<Comment> commentsSet = new HashSet<>();
-        commentsSet.add(comment1);
-        commentsSet.add(comment2);
-        commentsSet.add(comment3);
-        expected.add(new Issue(6, "приложение не запускается", new Author(8, "Anna", "Popova"), BUG, new Assignee(2, "Vladimir", "Poznek"), CLOSED, new GregorianCalendar(2020, Calendar.APRIL, 10, 13, 11, 11).getTime(), commentsSet, new GregorianCalendar(2020, Calendar.APRIL, 10, 17, 11, 11).getTime()));
-        expected.add(new Issue(5, "Кнопка добавить товар должна быть больше", new Author(5, "Anyz", "Mavel"), Label.WANTFIX, new Assignee(1, "Irina", "Alexandrova"), Status.OPEN, new GregorianCalendar(2020, Calendar.APRIL, 8, 12, 11, 11).getTime(), new Comment(1, new Author(1, "Irina", "Alexandrova"), "уточните какого размера должна быть кнопка", new GregorianCalendar(2020, Calendar.MAY, 8, 13, 15, 17).getTime()), new GregorianCalendar(2020, Calendar.MAY, 8, 13, 15, 17).getTime()));
-        expected.add(new Issue(4, "Файл с домашним заданием не загружается", new Author(7, "Savva", "Derunov"), BUG, new Assignee(5, "Boris", "Aprelev"), CLOSED, new GregorianCalendar(2020, Calendar.MARCH, 24, 12, 11, 11).getTime(), new GregorianCalendar(2020, Calendar.MARCH, 24, 2, 11, 11).getTime()));
-        expected.add(new Issue(3, "я могу предложить больше методов для д/з", new Author(5, "Boris", "Aprelev"), Label.ENHANCEMENT, new Assignee(6, "Dmitriy", "Girs"), CLOSED, new GregorianCalendar(2019, Calendar.DECEMBER, 16, 13, 12, 14).getTime(), new GregorianCalendar(2019, Calendar.DECEMBER, 16, 13, 12, 14).getTime()));
-        expected.add(new Issue(2, "подсказка в д/з не помогает", new Author(3, "Vasiliy", "Vodovozov"), BUG, new Assignee(4, "Nilolay", "Elagin"), new Tag(3, "invitroprogect"), Status.OPEN, new GregorianCalendar(2019, Calendar.NOVEMBER, 17, 12, 11, 11).getTime(), new GregorianCalendar(2019, Calendar.NOVEMBER, 18, 12, 11, 11).getTime()));
-        expected.add(new Issue(1, "ничего не работает", new Author(1, "Irina", "Alexandrova"), BUG, new Assignee(2, "Vladimir", "Posnek"), new Tag(2, "invitroproject"), OPEN, new GregorianCalendar(2019, Calendar.NOVEMBER, 16, 12, 11, 11).getTime(), new GregorianCalendar(2019, Calendar.DECEMBER, 16, 12, 11, 11).getTime()));
+        expected.add(issue6);
+        expected.add(issue5);
+        expected.add(issue4);
+        expected.add(issue3);
+        expected.add(issue2);
+        expected.add(issue1);
         assertEquals(expected, actual);
     }
 
@@ -166,16 +148,12 @@ class IssueManagerTest {
     void shouldSortFromRecentlyUpdated() {
         List<Issue> actual = issueManager.sortFromRecentlyUpdated();
         List<Issue> expected = new ArrayList<>();
-        expected.add(new Issue(5, "Кнопка добавить товар должна быть больше", new Author(5, "Anyz", "Mavel"), Label.WANTFIX, new Assignee(1, "Irina", "Alexandrova"), Status.OPEN, new GregorianCalendar(2020, Calendar.APRIL, 8, 12, 11, 11).getTime(), new Comment(1, new Author(1, "Irina", "Alexandrova"), "уточните какого размера должна быть кнопка", new GregorianCalendar(2020, Calendar.MAY, 8, 13, 15, 17).getTime()), new GregorianCalendar(2020, Calendar.MAY, 8, 13, 15, 17).getTime()));
-        HashSet<Comment> commentsSet = new HashSet<>();
-        commentsSet.add(comment1);
-        commentsSet.add(comment2);
-        commentsSet.add(comment3);
-        expected.add(new Issue(6, "приложение не запускается", new Author(8, "Anna", "Popova"), BUG, new Assignee(2, "Vladimir", "Poznek"), CLOSED, new GregorianCalendar(2020, Calendar.APRIL, 10, 13, 11, 11).getTime(), commentsSet, new GregorianCalendar(2020, Calendar.APRIL, 10, 17, 11, 11).getTime()));
-        expected.add(new Issue(4, "Файл с домашним заданием не загружается", new Author(7, "Savva", "Derunov"), BUG, new Assignee(5, "Boris", "Aprelev"), CLOSED, new GregorianCalendar(2020, Calendar.MARCH, 24, 12, 11, 11).getTime(), new GregorianCalendar(2020, Calendar.MARCH, 24, 2, 11, 11).getTime()));
-        expected.add(new Issue(3, "я могу предложить больше методов для д/з", new Author(5, "Boris", "Aprelev"), Label.ENHANCEMENT, new Assignee(6, "Dmitriy", "Girs"), CLOSED, new GregorianCalendar(2019, Calendar.DECEMBER, 16, 13, 12, 14).getTime(), new GregorianCalendar(2019, Calendar.DECEMBER, 16, 13, 12, 14).getTime()));
-        expected.add(new Issue(1, "ничего не работает", new Author(1, "Irina", "Alexandrova"), BUG, new Assignee(2, "Vladimir", "Posnek"), new Tag(2, "invitroproject"), OPEN, new GregorianCalendar(2019, Calendar.NOVEMBER, 16, 12, 11, 11).getTime(), new GregorianCalendar(2019, Calendar.DECEMBER, 16, 12, 11, 11).getTime()));
-        expected.add(new Issue(2, "подсказка в д/з не помогает", new Author(3, "Vasiliy", "Vodovozov"), BUG, new Assignee(4, "Nilolay", "Elagin"), new Tag(3, "invitroprogect"), Status.OPEN, new GregorianCalendar(2019, Calendar.NOVEMBER, 17, 12, 11, 11).getTime(), new GregorianCalendar(2019, Calendar.NOVEMBER, 18, 12, 11, 11).getTime()));
+        expected.add(issue5);
+        expected.add(issue6);
+        expected.add(issue4);
+        expected.add(issue3);
+        expected.add(issue1);
+        expected.add(issue2);
         assertEquals(expected, actual);
     }
 
@@ -183,16 +161,12 @@ class IssueManagerTest {
     void shouldSortFromLeastRecentlyUpdated() {
         List<Issue> actual = issueManager.sortFromLeastRecentlyUpdated();
         List<Issue> expected = new ArrayList<>();
-        expected.add(new Issue(2, "подсказка в д/з не помогает", new Author(3, "Vasiliy", "Vodovozov"), BUG, new Assignee(4, "Nilolay", "Elagin"), new Tag(3, "invitroprogect"), Status.OPEN, new GregorianCalendar(2019, Calendar.NOVEMBER, 17, 12, 11, 11).getTime(), new GregorianCalendar(2019, Calendar.NOVEMBER, 18, 12, 11, 11).getTime()));
-        expected.add(new Issue(1, "ничего не работает", new Author(1, "Irina", "Alexandrova"), BUG, new Assignee(2, "Vladimir", "Posnek"), new Tag(2, "invitroproject"), OPEN, new GregorianCalendar(2019, Calendar.NOVEMBER, 16, 12, 11, 11).getTime(), new GregorianCalendar(2019, Calendar.DECEMBER, 16, 12, 11, 11).getTime()));
-        expected.add(new Issue(3, "я могу предложить больше методов для д/з", new Author(5, "Boris", "Aprelev"), Label.ENHANCEMENT, new Assignee(6, "Dmitriy", "Girs"), CLOSED, new GregorianCalendar(2019, Calendar.DECEMBER, 16, 13, 12, 14).getTime(), new GregorianCalendar(2019, Calendar.DECEMBER, 16, 13, 12, 14).getTime()));
-        expected.add(new Issue(4, "Файл с домашним заданием не загружается", new Author(7, "Savva", "Derunov"), BUG, new Assignee(5, "Boris", "Aprelev"), CLOSED, new GregorianCalendar(2020, Calendar.MARCH, 24, 12, 11, 11).getTime(), new GregorianCalendar(2020, Calendar.MARCH, 24, 2, 11, 11).getTime()));
-        HashSet<Comment> commentsSet = new HashSet<>();
-        commentsSet.add(comment1);
-        commentsSet.add(comment2);
-        commentsSet.add(comment3);
-        expected.add(new Issue(6, "приложение не запускается", new Author(8, "Anna", "Popova"), BUG, new Assignee(2, "Vladimir", "Poznek"), CLOSED, new GregorianCalendar(2020, Calendar.APRIL, 10, 13, 11, 11).getTime(), commentsSet, new GregorianCalendar(2020, Calendar.APRIL, 10, 17, 11, 11).getTime()));
-        expected.add(new Issue(5, "Кнопка добавить товар должна быть больше", new Author(5, "Anyz", "Mavel"), Label.WANTFIX, new Assignee(1, "Irina", "Alexandrova"), Status.OPEN, new GregorianCalendar(2020, Calendar.APRIL, 8, 12, 11, 11).getTime(), new Comment(1, new Author(1, "Irina", "Alexandrova"), "уточните какого размера должна быть кнопка", new GregorianCalendar(2020, Calendar.MAY, 8, 13, 15, 17).getTime()), new GregorianCalendar(2020, Calendar.MAY, 8, 13, 15, 17).getTime()));
+        expected.add(issue2);
+        expected.add(issue1);
+        expected.add(issue3);
+        expected.add(issue4);
+        expected.add(issue6);
+        expected.add(issue5);
         assertEquals(expected, actual);
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 import static ru.netology.issue.Status.CLOSED;
 
 public class Repository {
-    List<Issue> issues = new ArrayList<>();
+    private  List<Issue> issues = new ArrayList<>();
 
     public Repository() {
     }
